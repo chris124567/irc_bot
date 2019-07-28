@@ -18,6 +18,7 @@ void recv_and_process_message(int sock) {
     time_t t;
     ssize_t size;
 
+    buf = tm_no_newline = NULL;
     buf = malloc_wrapper(
         MAX_MSG_SIZE + 1); /* Standard specifies maximum message size as 512 */
     size = recv(sock, buf, MAX_MSG_SIZE, 0);
@@ -32,7 +33,7 @@ void recv_and_process_message(int sock) {
 #endif
         send_all(sock, "PONG *\r\n");
     }
-    if (strstr(buf, "PRIVMSG")) {
+    if (strstr(buf, " PRIVMSG ")) {
         t = time(NULL);
         tm_no_newline = strtok(ctime(&t), "\n");
         printf("(%s) %s", tm_no_newline, buf); /* log message command with timestamp */
