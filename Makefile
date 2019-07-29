@@ -1,6 +1,6 @@
 CFLAGS := -ansi -std=c89
 #CFLAGS += -ggdb -O1 -g
-CFLAGS += -march=native -Ofast -fuse-linker-plugin -flto=4 -s
+CFLAGS += -march=native -Ofast #-fuse-linker-plugin -flto=4 -s
 CFLAGS += -pedantic -Wall -Wextra -Wshadow -Wnull-dereference -Wduplicated-branches -Wundef -Wstrict-prototypes -Wsign-conversion -Wno-unused-parameter -Wconversion
 CFLAGS += -D_FORTIFY_SOURCE=2 -Wformat=2 -Wstrict-overflow=5
 #CFLAGS += -DDEBUG

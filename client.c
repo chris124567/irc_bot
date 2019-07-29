@@ -49,4 +49,3 @@ void send_login(int sock, struct user *info) {
 void join_channel(int sock, struct server *serv) {
     sendall_fmt(sock, "JOIN %s\r\n", serv->channel);
 }
-
