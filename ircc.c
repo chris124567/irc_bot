@@ -19,11 +19,11 @@ void cleanup_all(struct user *userinfo, struct server *serverinfo, int sock) {
 int main(int argc, char *argv[]) {
     int sockfd;
     struct user *userinfo;
-    struct server *servinfo; /* TODO: put channel in here too */
+    struct server *servinfo;
 
     /* todo: read from configuration file */
     if (argc < 2) {
-        die("Insufficient arguments");
+        die("Insufficient arguments: this program takes one argument, bot nickname");
     }
 
     /* initializes user info struct */
@@ -55,8 +55,8 @@ int main(int argc, char *argv[]) {
     send_login(sockfd, userinfo);
     join_channel(sockfd, servinfo);
 
-    while (1) { /* main recv loop */
-        recv_and_process_message(sockfd);
+    while (recv_and_process_message(sockfd) == EXIT_SUCCESS) { /* main recv loop */
+        ;
     }
 
     cleanup_all(userinfo, servinfo, sockfd);

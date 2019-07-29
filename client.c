@@ -12,7 +12,7 @@
 #include "userinfo.h"
 #include "util.h"
 
-void recv_and_process_message(int sock) {
+int recv_and_process_message(int sock) {
     char *buf;
     char *tm_no_newline;
     time_t t;
@@ -22,6 +22,11 @@ void recv_and_process_message(int sock) {
     buf = malloc_wrapper(
         MAX_MSG_SIZE + 1); /* Standard specifies maximum message size as 512 */
     size = recv(sock, buf, MAX_MSG_SIZE, 0);
+    
+    if(size == -1) { /* recv failure */
+        return (EXIT_FAILURE);
+    }
+
     buf[size] = '\0';
 #ifdef DEBUG
     printf("%s", buf);
@@ -39,6 +44,8 @@ void recv_and_process_message(int sock) {
         printf("(%s) %s", tm_no_newline, buf); /* log message command with timestamp */
     }
     free(buf);
+
+    return (EXIT_SUCCESS);
 }
 
 void send_login(int sock, struct user *info) {
